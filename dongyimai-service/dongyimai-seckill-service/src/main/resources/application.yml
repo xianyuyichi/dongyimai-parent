@@ -1,0 +1,54 @@
+server:
+  port: 9005
+spring:
+  application:
+    name: dym-seckill
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.206.110:33306/dongyimaidb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  jackson:
+    time-zone: GMT+8
+  redis:
+    host: 192.168.206.110
+    port: 6379
+  rabbitmq:
+    host: 192.168.206.110 #mq的服务器地址
+    username: guest #账号
+    password: guest #密码
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+#hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+          strategy: SEMAPHORE
+logging:
+  level:
+    com.offcn: debug
+#位置支付交换机和队列
+mq:
+  pay:
+    exchange:
+      seckillorder: exchange.seckillorder
+    queue:
+      seckillorder: queue.seckillorder
+    routing:
+      seckillkey: queue.seckillorder

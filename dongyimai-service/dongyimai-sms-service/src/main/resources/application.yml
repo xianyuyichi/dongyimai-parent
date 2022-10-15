@@ -1,0 +1,17 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: dym-sms
+  rabbitmq:
+    host: 192.168.206.110
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+sms:
+  appcode: b58fe0b0982f46a7a03342c9de312a67  #使用自己的AppCode
+  tpl_id: TP1711063    # 默认模板

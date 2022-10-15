@@ -1,0 +1,66 @@
+server:
+  port: 9100
+spring:
+  application:
+    name: user-auth
+  redis:
+    host: 192.168.206.110
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.206.110:33306/dongyimai-user?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: 123456
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+auth:
+  ttl: 3600  #token存储到redis的过期时间
+  clientId: dongyimai
+  clientSecret: dongyimai
+  cookieDomain: localhost
+  cookieMaxAge: -1
+encrypt:
+  key-store:
+    location: classpath:/dongyimai.jks
+    secret: dongyimai
+    alias: dongyimai
+    password: dongyimai
+# 开启Feign的熔断功能
+feign:
+  hystrix:
+    enabled: true
+#总连接超时时间=（切换服务实例次数+1）*（每个实例重试次数+1）*连接超时时间
+DYM-USER: #服务名称
+  ribbon:
+    #配置指定服务的负载均衡策略
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+    # Ribbon的连接超时时间
+    ConnectTimeout: 2000
+    # Ribbon的数据读取超时时间
+    ReadTimeout: 2000
+    # 是否对所有操作都进行重试
+    OkToRetryOnAllOperations: true
+    # 切换实例的重试次数
+    MaxAutoRetriesNextServer: 1
+    # 对当前实例的重试次数
+    MaxAutoRetries: 1
+#设定Hystrix熔断超时时间 ，理论上熔断时间应该大于总连接超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000

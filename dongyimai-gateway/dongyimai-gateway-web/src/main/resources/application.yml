@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: dym-gateway-web
+  cloud:
+    gateway:
+      routes:
+        - id: sellergoods-route
+          #uri: http://localhost:9001
+          uri: lb://DYM-SELLERGOODS
+          predicates:
+            #- Host=cloud.ujiuye.com**
+            #- Path=/brand**
+            #- Path=/**
+            #- Path=/api/brand/**
+            - Path=/api/brand**,/api/itemCat**
+          filters:
+            #- PrefixPath=/brand
+            - StripPrefix=1
+            - name: RequestRateLimiter #请求数限流 名字不能随便写 ，使用默认的facatory
+              args:
+                key-resolver: "#{@ipKeyResolver}"
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+
+        - id: dongyimai_user_route
+          uri: lb://dym-user
+          predicates:
+            - Path=/api/user/**,/api/address/**,/api/areas/**,/api/cities/**,/api/provinces/**
+          filters:
+            - StripPrefix=1
+
+        - id: dongyimai_order_route
+          uri: lb://dym-order
+          predicates:
+            - Path=/api/cart/**,/api/order/**,/api/orderItem/**
+          filters:
+            - StripPrefix=1
+        - id: dongyimai_pay_route #支付微服务
+          uri: lb://dym-pay
+          predicates:
+            - Path=/api/pay/**
+          filters:
+            - StripPrefix=1
+        - id: dongyimai_seckill_route
+          uri: lb://dym-seckill
+          predicates:
+            - Path=/api/seckillGoods/**,/api/seckillOrder/**
+          filters:
+            - StripPrefix=1
+  redis:
+    host: 192.168.150.112
+    port: 6379
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+#将gateway 端点暴露
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  web:
+    exposure:
+      include: true

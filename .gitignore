@@ -1,0 +1,26 @@
+# Project exclude paths
+/dongyimai-common/target/
+/dongyimai-common-db/target/
+/dongyimai-eureka/target/
+/dongyimai-gateway/dongyimai-gateway-web/target/
+/dongyimai-service/dongyimai-canal-service/target/
+/dongyimai-service/dongyimai-content-service/target/
+/dongyimai-service/dongyimai-file-service/target/
+/dongyimai-service/dongyimai-order-service/target/
+/dongyimai-service/dongyimai-pay-service/target/
+/dongyimai-service/dongyimai-payseckill-service/target/
+/dongyimai-service/dongyimai-search-service/target/
+/dongyimai-service/dongyimai-seckill-service/target/
+/dongyimai-service/dongyimai-sellergoods-service/target/
+/dongyimai-service/dongyimai-sms-service/target/
+/dongyimai-service/dongyimai-user-service/target/
+/dongyimai-service-api/dongyimai-content-service-api/target/
+/dongyimai-service-api/dongyimai-item-web-api/target/
+/dongyimai-service-api/dongyimai-order-service-api/target/
+/dongyimai-service-api/dongyimai-search-service-api/target/
+/dongyimai-service-api/dongyimai-seckill-service-api/target/
+/dongyimai-service-api/dongyimai-sellergoods-serivce-api/target/
+/dongyimai-service-api/dongyimai-user-service-api/target/
+/dongyimai-user-oauth/target/
+/dongyimai-web/dongyimai-item-web/target/
+/dongyimai-web/dongyimai-search-web/target/
